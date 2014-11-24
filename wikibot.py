@@ -78,6 +78,8 @@ class WikiBot:
                             self.send("PRIVMSG %s :%s\r\n" % (line[2], self.search(sterm)))
                         elif("#" in line[3]):
                             self.join(line[3].replace(":",""))
+                    elif(line[1]=="INVITE"):
+                        self.join(line[3].replace(":",""))
 
 
 wbot = WikiBot("irc.rizon.net", 6697, "WikiBot", "WikiBot", "WikiBot")
