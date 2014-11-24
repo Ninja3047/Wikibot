@@ -73,7 +73,7 @@ class WikiBot:
                             self.identify(str(input("Password: ")))
                             WikiBot.auth=True
 
-                        if("#" in line[2] and ".w" in line[3]):
+                        if("#" in line[2] and ".wiki" in line[3]):
                             sterm = " ".join(line[4:])
                             self.send("PRIVMSG %s :%s\r\n" % (line[2], self.search(sterm)))
                         elif("#" in line[3]):
