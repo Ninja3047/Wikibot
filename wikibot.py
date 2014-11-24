@@ -69,9 +69,9 @@ class WikiBot:
                     self.send("PONG %s\r\n" % line[1])
                 elif(len(line) > 3):
                     if(line[1]=="PRIVMSG"):
-                        if(WikiBot.auth==False):
+                        if(self.auth==False):
                             self.identify(str(input("Password: ")))
-                            WikiBot.auth=True
+                            self.auth=True
 
                         if("#" in line[2] and ".wiki" in line[3]):
                             sterm = " ".join(line[4:])
