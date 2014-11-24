@@ -3,16 +3,18 @@
 from bs4 import BeautifulSoup
 import requests
 
-import socket
+import socket, ssl
 
 class WikiBot:
+
     def __init__(self, host, port, nick, ident, realname):
         self.host = host
         self.port = port
         self.nick = nick
         self.ident = ident
         self.realname = realname
-        self.s=socket.socket()
+        context = ssl.SSLContext(ssl.PROTOCOL_SSLv23)
+        self.s=context.wrap_socket(socket.socket())
 
     def getHost(self):
         return self.host
@@ -70,6 +72,6 @@ class WikiBot:
                             self.join(line[3].replace(":",""))
 
 
-wbot = WikiBot("irc.rizon.net", 6667, "WikiBot", "WikiBot", "WikiBot")
+wbot = WikiBot("irc.rizon.net", 6697, "WikiBot", "WikiBot", "WikiBot")
 wbot.connect()
 wbot.run()
