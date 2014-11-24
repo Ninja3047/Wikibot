@@ -6,6 +6,7 @@ import requests
 import socket, ssl
 
 class WikiBot:
+    auth = False
 
     def __init__(self, host, port, nick, ident, realname):
         self.host = host
@@ -45,6 +46,9 @@ class WikiBot:
     def join(self, channel):
         self.send("JOIN %s\r\n" % channel)
 
+    def identify(self, password):
+        self.send("PRIVMSG NICKSERV :IDENTIFY %s\r\n" % password)
+
     def connect(self):
         self.s.connect((self.host, self.port))
         self.send("NICK %s\r\n" % self.nick)
@@ -65,6 +69,10 @@ class WikiBot:
                     self.send("PONG %s\r\n" % line[1])
                 elif(len(line) > 3):
                     if(line[1]=="PRIVMSG"):
+                        if(WikiBot.auth==False):
+                            self.identify(str(input("Password: ")))
+                            WikiBot.auth=True
+
                         if("#" in line[2] and ".w" in line[3]):
                             sterm = " ".join(line[4:])
                             self.send("PRIVMSG %s :%s\r\n" % (line[2], self.search(sterm)))
