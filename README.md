@@ -3,4 +3,4 @@ Wikibot
 
 IRC Wikipedia Bot
 
-A simple IRC Bot written in python that scrapes from Wikipedia
+A simple IRC Bot written in python that uses the Wikipedia api
